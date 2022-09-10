@@ -25,7 +25,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.1",
-        "illuminate/collections": "^8.78",
+        "illuminate/collections": "^9.0",
         "symfony/finder": "^6.0"
     },
     "require-dev": {
