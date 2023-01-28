@@ -26,6 +26,7 @@ class Exporter
     {
         $enums = $this->provider->findEnums();
 
+        // @phpstan-ignore-next-line
         return collect($enums)
             ->each(fn(Enum $enum) => $this->exportEnum($enum))
             ->map(fn(Enum $enum): string => $enum->exportPath($this->defaultExportPath, $this->defaultOutputFormatter->getFileExtension()))

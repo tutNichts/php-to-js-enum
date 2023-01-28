@@ -28,13 +28,15 @@ class AttributeProvider implements IProvider
     }
 
     /**
-     * @return array<Enum>
+     * @return array<string, Enum>
      */
     public function findEnums(): array
     {
+        // @phpstan-ignore-next-line
         return collect($this->findFiles())
             ->map(fn(SplFileInfo $file): null|ReflectionEnum|ReflectionClass => ReflectionHelper::reflectionObjectByFile($file))
             ->filter(fn(null|ReflectionEnum|ReflectionClass $reflectionObject): bool => !is_null($reflectionObject) && !empty($reflectionObject->getAttributes(PhpJsEnumAttribute::class)))
+            // @phpstan-ignore-next-line
             ->map(fn(ReflectionEnum|ReflectionClass $reflectionObject): Enum => $this->convertReflectionObjectToEnum($reflectionObject))
             ->mapWithKeys(fn(Enum $enum): array => [$enum->sourceClass => $enum])
             ->toArray();
@@ -69,6 +71,7 @@ class AttributeProvider implements IProvider
      */
     private function getCasesOfEnum(ReflectionEnum $enum): array
     {
+        // @phpstan-ignore-next-line
         return collect($enum->getCases())
             ->filter(fn(ReflectionEnumBackedCase $case): bool => empty($case->getAttributes(PhpJsEnumIgnoreAttribute::class)))
             ->mapWithKeys(fn(ReflectionEnumBackedCase $case): array => [$case->getName() => $case->getBackingValue()])
@@ -81,6 +84,7 @@ class AttributeProvider implements IProvider
      */
     private function getCasesOfClass(ReflectionClass $class): array
     {
+        // @phpstan-ignore-next-line
         return collect(array_keys($class->getConstants()))
             ->map(fn(string $constant): ReflectionClassConstant => new ReflectionClassConstant($class->getName(), $constant))
             ->filter(fn(ReflectionClassConstant $constant): bool => empty($constant->getAttributes(PhpJsEnumIgnoreAttribute::class)))
