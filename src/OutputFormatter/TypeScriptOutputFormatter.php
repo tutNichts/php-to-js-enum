@@ -23,8 +23,8 @@ class TypeScriptOutputFormatter implements IOutputFormatter
         );
 
         return <<<JS
-export enum $name {
-	$enumOutput
+export default enum $name {
+  $enumOutput
 }
 JS. PHP_EOL;
     }

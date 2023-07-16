@@ -20,7 +20,7 @@ final class TypeScriptOutputFormatterTest extends TestCase
         ]);
 
         $this->assertEquals(<<<JS
-export enum TestEnum {
+export default enum TestEnum {
 	TestCase1 = 'TestCase1Value',
 	TestCase2 = 1,
 }
